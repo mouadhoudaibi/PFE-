@@ -14,8 +14,12 @@ class Etudiant extends Authenticatable
 
     protected $hidden = ['password'];
 
-    public function group(): BelongsTo
+    public function group()
     {
         return $this->belongsTo(Group::class);
+    }
+    public function grades()
+    {
+        return $this->hasMany(Grade::class);
     }
 }

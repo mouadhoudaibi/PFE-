@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Etudiant;
+use App\Models\Grade;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -39,10 +40,11 @@ class EtudiantController extends Controller
 
     public function dashboard()
     {
-        $etudiant = Auth::user(); // Get the logged-in student
+        $etudiant = Auth::user();
+        $grades = $etudiant->grades;
         $studentsInGroup = Etudiant::where('group_id', $etudiant->group_id)->count(); 
 
-        return view('etudiant.dashboard', compact('studentsInGroup'));
+        return view('etudiant.dashboard', compact('studentsInGroup','grades'));
     }
     public function logout()
     {

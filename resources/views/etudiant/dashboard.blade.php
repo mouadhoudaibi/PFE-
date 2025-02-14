@@ -36,19 +36,49 @@
 </head>
 <body>
 
-    <div class="container">
+
+    @extends('layouts.app')
+
+    @section('title', 'Student Dashboard')
+
+    @section('content')
         <h1>Welcome, {{ Auth::user()->name }} 👋</h1>
         <p>We are happy to see you here! Explore your courses, manage your assignments, and stay connected with your teachers.</p>
         
         <h3>Your Group: {{ Auth::user()->group->name }}</h3>
         <p>👥 There are <strong>{{ $studentsInGroup }}</strong> students in your group.</p>
-        
-        <!-- Logout Button -->
-        <form action="{{ route('etudiant.logout') }}" method="POST">
+
+        <h3>Your Grades</h3>
+        <ul class="list-group">
+            @foreach($grades as $grade)
+                <li class="list-group-item">
+                    {{ $grade->subject->name }} - Grade: {{ $grade->grade }}
+                </li>
+            @endforeach
+            <!--  calculer la moyenne des notes -->
+
+            <?php
+                $sum = 0;
+                foreach($grades as $grade){
+                    $sum += $grade->grade;
+                }
+                $averageGrade = $sum / count($grades);
+            ?>
+              <li class="list-group-item">
+                <strong> Average Grade: {{ $averageGrade }} </strong>
+
+              </li>
+             
+              
+
+        </ul>
+
+        <form action="{{ route('etudiant.logout') }}" method="POST" class="mt-3">
             @csrf
-            <button type="submit" class="logout-btn">Logout</button>
+            <button type="submit" class="btn btn-danger">Logout</button>
         </form>
-    </div>
+    @endsection
+
 
 </body>
 </html>

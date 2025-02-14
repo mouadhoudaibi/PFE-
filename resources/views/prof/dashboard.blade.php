@@ -7,15 +7,34 @@
 </head>
 <body>
 
-    <h1>Welcome, {{ Auth::guard('prof')->user()->name }}!</h1>
+@extends('layouts.app')
 
-    <p>You are logged in as a professor.</p>
+@section('title', 'Professor Dashboard')
 
-    <!-- Link to log out -->
-    <form action="{{ route('prof.logout') }}" method="POST">
+@section('content')
+    <h1>Welcome, {{ Auth::guard('prof')->user()->name }} 👨‍🏫</h1>
+    <p>Here are the subjects you teach:</p>
+
+    @if($subjects->isEmpty())
+        <p>You have not been assigned any subjects yet.</p>
+    @else
+        <ul class="list-group">
+            @foreach($subjects as $subject)
+                <li class="list-group-item">
+                    {{ $subject->name }}
+                    <a href="{{ route('prof.students', $subject->id) }}" class="btn btn-sm btn-info float-end">View Students</a>
+                </li>
+            @endforeach
+        </ul>
+    @endif
+
+    <form action="{{ route('prof.logout') }}" method="POST" class="mt-3">
         @csrf
-        <button type="submit">Logout</button>
+        <button type="submit" class="btn btn-danger">Logout</button>
     </form>
+@endsection
+
+
 
 
     

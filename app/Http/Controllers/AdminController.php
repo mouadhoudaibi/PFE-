@@ -9,6 +9,7 @@ use App\Models\Admin;
 use App\Models\Prof;
 use App\Models\Etudiant;
 use App\Models\Group;
+use App\Models\Subject;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -156,6 +157,27 @@ class AdminController extends Controller
         ]);
 
         return redirect()->route('admin.dashboard')->with('success', 'Student account created successfully!');
+    }
+
+
+    public function assignProf()
+    {
+        $profs = Prof::all();
+        $subjects = Subject::all();
+        return view('admin.assign_prof', compact('profs', 'subjects'));
+    }
+
+    public function storeProfSubject(Request $request)
+    {
+        $request->validate([
+            'prof_id' => 'required|exists:profs,id',
+            'subject_id' => 'required|exists:subjects,id',
+        ]);
+
+        $prof = Prof::findOrFail($request->prof_id);
+        $prof->subjects()->syncWithoutDetaching($request->subject_id);
+        
+        return redirect()->back()->with('success', 'Professor assigned to subject successfully');
     }
     
 }

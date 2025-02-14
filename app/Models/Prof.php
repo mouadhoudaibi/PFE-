@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;  
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+
 
 class Prof extends Authenticatable  
 {
-    use HasFactory;
+
 
 
     protected $fillable = [
@@ -20,4 +21,14 @@ class Prof extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, 'prof_subjects');
+    }
+
+    public function grades()
+    {
+        return $this->hasMany(Grade::class);
+    }
 }
