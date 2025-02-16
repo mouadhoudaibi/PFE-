@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Prof</title>
+    <title>Groups You Teach</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* General reset and layout settings */
         body {
@@ -14,7 +15,6 @@
             background-color: #f4f4f4;
         }
 
-        /* Main wrapper */
         .prof-dashboard-wrapper {
             display: flex;
             height: 100vh;
@@ -24,7 +24,7 @@
         /* Sidebar */
         .sidebar {
             background-color: #f8f9fa;
-            color: black;
+            color: #000 !important  ;
             width: 250px;
             padding-top: 30px;
             position: fixed;
@@ -36,10 +36,9 @@
 
         .sidebar h4 {
             text-align: center;
-            color: #000;
+            color: #000 ;
             margin-bottom: 30px;
             font-size: 24px;
-            font-weight: bold;
         }
 
         .sidebar .nav {
@@ -52,36 +51,22 @@
         }
 
         .sidebar .nav-link {
-            color: #000;
-            text-decoration: none;
-            padding: 10px 20px;
             display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #000;
+            margin-bottom: 15px;
             font-size: 18px;
             font-weight: bold;
         }
 
         .sidebar .nav-link:hover {
-            background-color: #dcdcdc;
-            color: black;
+            background-color: #007bff;
+            color: white;
         }
 
         .sidebar .nav-link i {
             margin-right: 10px;
-        }
-
-        .sidebar .logout-btn {
-            background-color: #dc3545;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 30px;
-        }
-
-        .sidebar .logout-btn:hover {
-            background-color: #c82333;
         }
 
         /* Main content area */
@@ -91,7 +76,7 @@
             width: 100%;
         }
 
-        /* Top Navbar */
+        /* Navbar */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -104,42 +89,65 @@
             font-size: 20px;
         }
 
+        .navbar-left a{
+            text-decoration: none;
+            color: white;
+        }
+
+        .navbar-left a:hover{
+            color: white;
+        }
+
         .navbar-right .user-info {
             font-size: 16px;
         }
 
-        /* Buttons */
-        .view-btn {
+        /* Table */
+        .table {
+            margin-top: 20px;
+        }
+
+        .table th, .table td {
+            text-align: center;
+        }
+
+        .table td a {
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+        }
+
+        .table td a:hover {
             background-color: #007bff;
+        }
+
+        /* Button Styles */
+        .btn-info {
+            background-color: #007bff;
+            border-color: #007bff;
             color: white;
             padding: 10px 20px;
-            border: none;
-            font-size: 16px;
             border-radius: 5px;
-            margin-bottom: 30px;
-            cursor: pointer;
+            text-decoration: none;
         }
 
-        .view-btn:hover {
+        .btn-info:hover {
             background-color: #0056b3;
+            border-color: #0056b3;
         }
 
-        /* Subjects list */
-        .subjects {
-            list-style-type: none;
-            padding: 0;
-            font-size: 18px;
+        .back-btn {
+            margin-top: 20px;
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
         }
 
-        .subjects li {
-            margin: 10px 0;
-            display: flex;
-            align-items: center;
+        .back-btn:hover {
+            background-color: #5a6268;
         }
-
-        .subjects li i {
-            margin-right: 10px;
-        }
+        
 
     </style>
 </head>
@@ -161,12 +169,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <form action="{{ route('prof.logout') }}" method="POST">
-                    @csrf
-                    <button type="submit" class="logout-btn">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
-                </form>
+                <a href="{{ route('prof.logout') }}" class="nav-link">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
             </li>
         </ul>
     </div>
@@ -176,33 +181,45 @@
         <!-- Top Navbar -->
         <div class="navbar">
             <div class="navbar-left">
-                <h4><i class="fas fa-chalkboard-teacher"></i> Professor Dashboard</h4>
+                <a href="#" class="navbar-brand">
+                    <i class="fas fa-chalkboard-teacher"></i> Professor Dashboard
+                </a>
             </div>
             <div class="navbar-right">
-                <span class="user-info"><i class="fas fa-user"></i>{{ Auth::guard('prof')->user()->name }} </span>
+                <span class="user-info"><i class="fas fa-user"></i> {{ Auth::guard('prof')->user()->name }} </span>
             </div>
         </div>
 
         <!-- Main Content -->
         <div class="container-fluid">
-            <h1>Welcome, {{ Auth::guard('prof')->user()->name }} 👨‍🏫</h1>
+            <h1 class="mb-4">Groups You Teach</h1>
 
-            <a href="{{ route('prof.groups') }}" class="view-btn">
-                <i class="fas fa-users"></i> View Groups You Teach
-            </a>
-
-            @if(isset($subjects) && !$subjects->isEmpty())
-                <p>Here are the subjects you teach:</p>
-                <ul class="subjects">
-                    @foreach($subjects->unique('name') as $subject) 
-                        <li><i class="fas fa-book"></i> {{ $subject->name }}</li>
-                    @endforeach
-                </ul>
+            @if($groups->isEmpty())
+                <p>You are not assigned to any groups.</p>
             @else
-                <p>You have not been assigned any subjects yet.</p>
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Group Name</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($groups->unique('id') as $group)
+                            <tr>
+                                <td>{{ $group->name }}</td>
+                                <td>
+                                    <a href="{{ route('prof.viewStudents', $group->id) }}" class="btn-info">
+                                        <i class="fas fa-users"></i> View Students
+                                    </a>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
             @endif
 
-
+            <a href="{{ route('prof.dashboard') }}" class="back-btn">Back to Dashboard</a>
         </div>
     </div>
 </div>

@@ -3,6 +3,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Models\Prof;
 use App\Models\Etudiant;
@@ -43,9 +44,12 @@ class ProfController extends Controller
     public function dashboard()
     {
         $prof = Auth::guard('prof')->user();
-        $subjects = $prof->subjects;
-        return view('prof.dashboard', compact('subjects'));
+        $subjects = $prof->subjects; // Retrieve subjects assigned to the professor
+        $groups = $prof->groups()->with('etudiants')->get(); // Récupère les groupes enseignés par le prof
+
+        return view('prof.dashboard', compact('groups','subjects'));
     }
+
     public function logout()
     {
         Auth::guard('prof')->logout();  // Log out the professor
@@ -91,6 +95,54 @@ class ProfController extends Controller
 
         return redirect()->back()->with('success', 'Grade assigned successfully');
     }
+
+    public function viewGroups()
+    {
+        $prof = Auth::guard('prof')->user();
+        $groups = $prof->groups()->with('etudiants')->get();
+        return view('prof.groups', compact('groups'));
+    }
+
+    public function viewStudents($group_id)
+{
+    // Get the group and its subjects
+    $group = Group::with('subjects')->findOrFail($group_id);
+
+    // Return the view and pass the group data
+    return view('prof.view-students', compact('group'));
+}
+
+
+
+
+
+public function saveGrades(Request $request, Group $group)
+{
+    $request->validate([
+        'subject_id' => 'required|exists:subjects,id',
+        'grades' => 'required|array',
+        'grades.*' => 'nullable|numeric|min:0|max:20',
+    ]);
+
+    $prof = Auth::guard('prof')->user();
+
+    foreach ($request->grades as $studentId => $gradeValue) {
+        if ($gradeValue !== null) {
+            Grade::updateOrCreate(
+                [
+                    'etudiant_id' => $studentId,
+                    'prof_id' => $prof->id,
+                    'subject_id' => $request->subject_id
+                ],
+                ['grade' => $gradeValue]
+            );
+        }
+    }
+
+    return redirect()->route('prof.groups')->with('success', 'Grades saved successfully.');
+}
+
+
 
 }
 

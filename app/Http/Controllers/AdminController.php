@@ -4,6 +4,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProfSubject;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Prof;
@@ -160,24 +161,31 @@ class AdminController extends Controller
     }
 
 
-    public function assignProf()
+    public function showAssignProfForm()
     {
         $profs = Prof::all();
         $subjects = Subject::all();
-        return view('admin.assign_prof', compact('profs', 'subjects'));
+        $groups = Group::all();
+
+        return view('admin.assign-prof', compact('profs', 'subjects', 'groups'));
     }
 
-    public function storeProfSubject(Request $request)
+    public function storeAssignProf(Request $request)
     {
         $request->validate([
             'prof_id' => 'required|exists:profs,id',
             'subject_id' => 'required|exists:subjects,id',
+            'group_id' => 'required|exists:groups,id',
         ]);
 
-        $prof = Prof::findOrFail($request->prof_id);
-        $prof->subjects()->syncWithoutDetaching($request->subject_id);
-        
-        return redirect()->back()->with('success', 'Professor assigned to subject successfully');
+        // Insert into prof_subjects table
+        ProfSubject::create([
+            'prof_id' => $request->prof_id,
+            'subject_id' => $request->subject_id,
+            'group_id' => $request->group_id,
+        ]);
+
+        return redirect()->route('admin.assignProf')->with('success', 'Professor assigned successfully!');
     }
     
 }

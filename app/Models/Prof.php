@@ -31,4 +31,9 @@ class Prof extends Authenticatable
     {
         return $this->hasMany(Grade::class);
     }
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class, 'prof_subjects', 'prof_id', 'group_id');
+    }
+
 }

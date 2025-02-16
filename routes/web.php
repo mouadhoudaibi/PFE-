@@ -34,8 +34,8 @@ Route::prefix('admin')->group(function () {
 
         
         // Assign Professors to Subjects
-        Route::get('assign-prof', [AdminController::class, 'assignProf'])->name('admin.assignProf');
-        Route::post('assign-prof', [AdminController::class, 'storeProfSubject'])->name('admin.storeProfSubject');
+        Route::get('assign-prof', [AdminController::class, 'showAssignProfForm'])->name('admin.assignProf');
+    Route::post('assign-prof', [AdminController::class, 'storeAssignProf'])->name('admin.storeAssignProf');
     });
     
     // Authentication Routes
@@ -57,6 +57,12 @@ Route::prefix('prof')->group(function () {
         Route::get('dashboard', [ProfController::class, 'dashboard'])->name('prof.dashboard');
         Route::get('students/{subject_id}', [ProfController::class, 'showStudents'])->name('prof.students');
         Route::post('assign-grade', [ProfController::class, 'storeGrade'])->name('prof.assignGrade');
+        Route::get('groups', [ProfController::class, 'viewGroups'])->name('prof.groups');
+        Route::get('groups/{group}', [ProfController::class, 'viewStudents'])->name('prof.viewStudents');
+        Route::post('save-grades/{group}', [ProfController::class, 'saveGrades'])->name('prof.saveGrades');
+        
+
+
     });
 
     // Authentication Routes
@@ -71,6 +77,7 @@ Route::prefix('prof')->group(function () {
 Route::prefix('etudiant')->group(function () {
     Route::middleware('auth:etudiant')->group(function () {
         Route::get('dashboard', [EtudiantController::class, 'dashboard'])->name('etudiant.dashboard');
+        Route::get('assignments', [EtudiantController::class, 'assignments'])->name('etudiant.assignments');
     });
 
     // Authentication Routes

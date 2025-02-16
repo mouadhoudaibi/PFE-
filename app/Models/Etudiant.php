@@ -10,7 +10,7 @@ class Etudiant extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'password', 'group_id'];
+    protected $fillable = ['name', 'email', 'group_id'];
 
     protected $hidden = ['password'];
 
@@ -21,5 +21,9 @@ class Etudiant extends Authenticatable
     public function grades()
     {
         return $this->hasMany(Grade::class);
+    }
+    public function subjects()
+    {
+        return $this->group->subjects();
     }
 }

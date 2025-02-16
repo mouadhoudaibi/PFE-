@@ -51,5 +51,21 @@ class EtudiantController extends Controller
         Auth::guard('etudiant')->logout();  // Log out the professor
         return redirect()->route('etudiant.login');  // Redirect to the login page
     }
+
+    public function assignments()
+    {
+        $etudiant = Auth::guard('etudiant')->user();
+        $group = $etudiant->group;
+
+        if (!$group) {
+            return redirect()->route('etudiant.dashboard')->with('error', 'You are not assigned to a group.');
+        }
+
+        // Get subjects and their professors for this student's group
+        $subjects = $group->subjects()->with('profs')->get();
+
+        return view('etudiant.assignments', compact('subjects'));
+    }
+
 }
 
