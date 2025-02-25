@@ -72,6 +72,7 @@ class ProfController extends Controller
             'etudiant_id' => 'required|exists:etudiants,id',
             'subject_id' => 'required|exists:subjects,id',
             'grade' => 'required|integer|min:0|max:20',
+            'grade2' => 'required|integer|min:0|max:20',
         ],
         [
             'etudiant_id.required' => 'Veuillez renseigner l\'id de l\'etudiant',
@@ -79,6 +80,9 @@ class ProfController extends Controller
             'grade.required' => 'Veuillez renseigner le grade',
             'grade.min' => 'Le grade doit être compris entre 0 et 20',
             'grade.max' => 'Le grade doit être compris entre 0 et 20',
+            'grade2.required' => 'Veuillez renseigner le grade2',
+            'grade2.min' => 'Le grade2 doit être compris entre 0 et 20',
+            'grade2.max' => 'Le grade2 doit être compris entre 0 et 20',
         ]
     );
 
@@ -90,6 +94,7 @@ class ProfController extends Controller
             [
                 'prof_id' => Auth::id(), // The logged-in professor
                 'grade' => $request->grade,
+                'grade2' => $request->grade2,
             ]
         );
 
@@ -121,23 +126,30 @@ public function saveGrades(Request $request, Group $group)
     $request->validate([
         'subject_id' => 'required|exists:subjects,id',
         'grades' => 'required|array',
+        'grades2' => 'required|array',
         'grades.*' => 'nullable|numeric|min:0|max:20',
     ]);
 
     $prof = Auth::guard('prof')->user();
 
     foreach ($request->grades as $studentId => $gradeValue) {
-        if ($gradeValue !== null) {
+        $grade2Value = $request->grades2[$studentId] ?? null;
+        
+        if ($gradeValue !== null && $grade2Value !== null) {
             Grade::updateOrCreate(
                 [
                     'etudiant_id' => $studentId,
                     'prof_id' => $prof->id,
                     'subject_id' => $request->subject_id
                 ],
-                ['grade' => $gradeValue]
+                [
+                    'grade' => $gradeValue,
+                    'grade2' => $grade2Value, 
+                ]
             );
         }
     }
+    
 
     return redirect()->route('prof.groups')->with('success', 'Grades saved successfully.');
 }

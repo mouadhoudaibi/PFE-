@@ -125,6 +125,7 @@
                                     <th><i class="fas fa-book"></i> Subject</th>
                                     <th><i class="fas fa-user-tie"></i> Professor</th>
                                     <th><i class="fas fa-star"></i> Grade</th>
+                                    <th><i class="fas fa-star"></i>Grade2</th>
                                 </tr>
                             </thead>
 
@@ -132,6 +133,8 @@
                                 @foreach($subjects as $subject)
                                     @php
                                         $grade = $grades->where('subject_id', $subject->id)->first();
+                                        $grade2 = $grades->where('subject_id', $subject->id)->first();
+                                        
                                     @endphp
                                     <tr>
                                         <td>{{ $subject->name }}</td>
@@ -139,6 +142,11 @@
                                         <td>
                                             @if($grade)
                                                 {{ $grade->grade }} 
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($grade) 
+                                            {{ $grade->grade2 }}
                                             @endif
                                         </td>
                                     </tr>

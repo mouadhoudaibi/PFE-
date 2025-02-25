@@ -49,6 +49,7 @@
                             <th scope="col">Name</th>
                             <th scope="col" >Email</th>
                             <th scope="col" >Grade</th>
+                            <th scope="col" >Grade 2</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,7 +59,10 @@
                                 <td>{{ $student->name }}</td>
                                 <td>{{ $student->email }}</td>
                                 <td>
-                                    <input type="number" name="grades[{{ $student->id }}]" class="form-control grade-input" min="0" max="20" step="0.5">
+                                    <input type="number" name="grades[{{ $student->id }}]" class="form-control grade-input" min="0" max="20" step="0.5" value="{{ old('grades.' . $student->id) }}">
+                                </td>
+                                <td>
+                                    <input type="number" name="grades2[{{ $student->id }}]" class="form-control grade-input" min="0" max="20" step="0.5" value="{{ old('grades2.' . $student->id) }}">
                                 </td>
                             </tr>
                         @endforeach

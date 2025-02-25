@@ -1,7 +1,6 @@
 @extends('layouts.etudiant')
 @section('title', 'Etudiant Dashboard')
 
-
 @section('content')
 
     <!-- Main Content -->
@@ -38,35 +37,39 @@
                             <ul class="list-group">
                                 @foreach($grades as $grade)
                                     <li class="list-group-item">
-                                        {{ $grade->subject->name }} - Grade: {{ $grade->grade }}
+                                        {{ $grade->subject->name }} - Grade: {{ $grade->grade }} | Grade 2: {{ $grade->grade2 }}
                                     </li>
                                 @endforeach
-                                <!-- Average Grade -->
+                                
+                                <!-- Total and Average Grade -->
                                 <?php
                                     $sum = 0;
+                                    $count = count($grades) * 2; // Since each subject has grade and grade2
+                                    
                                     foreach($grades as $grade){
-                                        $sum += $grade->grade;
+                                        $sum += ($grade->grade + $grade->grade2);
                                     }
-                                    $averageGrade = count($grades) > 0 ? ($sum / count($grades)) : 0;
+                                    
+                                    $averageGrade = $count > 0 ? ($sum / $count) : 0;
                                 ?>
 
                                 <li class="list-group-item">
-                                    <strong> Average Grade: {{ count($grades) > 0 ? ($sum / count($grades)) : 'No grades available' }} </strong>
+                                    <strong>Total Grade: {{ $sum }}</strong>
                                 </li>
-                                 <?php
-                                 if ($averageGrade >= 10) {
-                                    echo '<li class="list-group-item">';
-                                    echo '<strong>Admis</strong>';
-                                    echo '</li>';
-                                 }
-                                 else {
-                                    echo '<li class="list-group-item">';
-                                    echo '<strong>No Admis </strong>';
-                                    echo '</li>';
-                                    }
+                                <li class="list-group-item">
+                                    <strong>Average Grade: {{ $averageGrade > 0 ? number_format($averageGrade, 2) : 'No grades available' }}</strong>
+                                </li>
 
-
-                                ?>
+                                <!-- Admission Status -->
+                                @if ($averageGrade >= 10)
+                                    <li class="list-group-item">
+                                        <strong class="text-success">Admis ✅</strong>
+                                    </li>
+                                @else
+                                    <li class="list-group-item">
+                                        <strong class="text-danger">No Admis ❌</strong>
+                                    </li>
+                                @endif
 
                             </ul>
                         </div>
@@ -74,6 +77,5 @@
                 </div>
             </div>
         </div>
-
 
 @endsection
