@@ -29,13 +29,19 @@ Route::prefix('admin')->group(function () {
         Route::get('groups', [GroupController::class, 'index'])->name('admin.groups.index');
         Route::get('groups/create', [GroupController::class, 'create'])->name('admin.groups.create');
         Route::post('groups/store', [GroupController::class, 'store'])->name('admin.groups.store');
+        Route::get('groups/{group}/students', [AdminController::class, 'viewStudents'])->name('admin.groups.students');
+        Route::get('students/{id}/edit', [AdminController::class, 'editStudent'])->name('admin.editStudent');
+        Route::put('students/{id}', [AdminController::class, 'updateStudent'])->name('admin.updateStudent');
+        Route::delete('students/{id}', [AdminController::class, 'deleteStudent'])->name('admin.deleteStudent');
         Route::delete('groups/{group}', [GroupController::class, 'destroy'])->name('admin.groups.destroy');
 
 
         
         // Assign Professors to Subjects
         Route::get('assign-prof', [AdminController::class, 'showAssignProfForm'])->name('admin.assignProf');
-    Route::post('assign-prof', [AdminController::class, 'storeAssignProf'])->name('admin.storeAssignProf');
+        Route::post('assign-prof', [AdminController::class, 'storeAssignProf'])->name('admin.storeAssignProf');
+
+        Route::get('professors-groups', [AdminController::class, 'viewProfessorsGroups'])->name('admin.professorsGroups');
     });
     
     // Authentication Routes
@@ -44,11 +50,18 @@ Route::prefix('admin')->group(function () {
     Route::get('login', [AdminController::class, 'showLoginForm'])->name('admin.login');
     Route::post('login', [AdminController::class, 'login'])->name('admin.login');
     Route::post('logout', [AdminController::class, 'logout'])->name('admin.logout');
+
+    // Subject Management (Admin)
+    Route::get('create-subject', [SubjectController::class, 'create'])->name('admin.createSubject');
+    Route::post('store-subject', [SubjectController::class, 'store'])->name('admin.storeSubject');
+    Route::get('subjects', [AdminController::class, 'viewSubjects'])->name('admin.subjects.index');
+    Route::get('subjects/{id}/edit', [AdminController::class, 'editSubject'])->name('admin.subjects.edit');
+    Route::put('subjects/{id}', [AdminController::class, 'updateSubject'])->name('admin.subjects.update');
+    Route::delete('subjects/{id}', [AdminController::class, 'deleteSubject'])->name('admin.subjects.delete');
+
 });
 
-// Subject Management (Admin)
-Route::get('admin/create-subject', [SubjectController::class, 'create'])->name('admin.createSubject');
-Route::post('admin/store-subject', [SubjectController::class, 'store'])->name('admin.storeSubject');
+
 // ==========================
 //      PROFESSOR ROUTES
 // ==========================
@@ -78,6 +91,7 @@ Route::prefix('etudiant')->group(function () {
     Route::middleware('auth:etudiant')->group(function () {
         Route::get('dashboard', [EtudiantController::class, 'dashboard'])->name('etudiant.dashboard');
         Route::get('assignments', [EtudiantController::class, 'assignments'])->name('etudiant.assignments');
+        Route::get('grades', [EtudiantController::class, 'grades'])->name('student.grades');
     });
 
     // Authentication Routes

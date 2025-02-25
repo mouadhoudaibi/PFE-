@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create G>oups</title>
+    <title>Create Groups</title>
 
 </head>
 <body>
@@ -23,7 +23,7 @@
     <table class="table mt-3">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>Nr</th>
                 <th>Group Name</th>
                 <th>Actions</th>
             </tr>
@@ -31,13 +31,19 @@
         <tbody>
             @foreach($groups as $group)
             <tr>
-                <td>{{ $group->id }}</td>
+                <td>{{ $loop-> iteration }}</td>
                 <td>{{ $group->name }}</td>
                 <td>
-                    <form action="{{ route('admin.groups.destroy', $group->id) }}" method="POST">
+                    <a href="{{ route('admin.groups.students', $group->id) }}" class="btn btn-info">
+                        <i class="fas fa-users"></i> View Students
+                    </a>
+                    
+                    <form action="{{ route('admin.groups.destroy', $group->id) }}" method="POST" style="display:inline;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this group?');">
+                            Delete
+                        </button>
                     </form>
                 </td>
             </tr>
@@ -46,6 +52,7 @@
     </table>
 </div>
 @endsection
+
 
     
 </body>

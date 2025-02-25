@@ -46,6 +46,18 @@ class EtudiantController extends Controller
 
         return view('etudiant.dashboard', compact('studentsInGroup','grades'));
     }
+
+    public function grades()
+    {
+        $student = Auth::guard('etudiant')->user();
+        $subjects = $student->group ? $student->group->subjects : collect(); // Ensure it's always a collection
+        $grades = $student->grades;
+        $studentsInGroup = Etudiant::where('group_id', $student->group_id)->count(); 
+    
+        return view('etudiant.grades', compact('subjects', 'grades' , 'studentsInGroup'));
+    }
+    
+
     public function logout()
     {
         Auth::guard('etudiant')->logout();  // Log out the professor

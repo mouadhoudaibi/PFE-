@@ -13,6 +13,7 @@ use App\Models\Group;
 use App\Models\Subject;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class AdminController extends Controller
 {
@@ -187,6 +188,84 @@ class AdminController extends Controller
 
         return redirect()->route('admin.assignProf')->with('success', 'Professor assigned successfully!');
     }
+
+    public function viewProfessorsGroups()
+    {
+        $profs = Prof::with(['subjects.groups'])->get();
+
+        return view('admin.professors-groups', compact('profs'));
+    }
+    public function viewStudents(Group $group)
+    {
+        $students = $group->etudiants; // Assuming a relationship exists in Group model
+        return view('admin.groups.students', compact('group', 'students'));
+    }
+    // Show Edit Form
+    public function editStudent($id)
+    {
+        $student = Etudiant::findOrFail($id);
+        return view('admin.groups.editStudent', compact('student'));
+    }
+
+    // Update Student
+    public function updateStudent(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:etudiants,email,'.$id,
+        ]);
+
+        $student = Etudiant::findOrFail($id);
+        $student->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return Redirect::route('admin.groups.students', $student->group_id)->with('success', 'Student updated successfully!');
+    }
+
+    // Delete Student
+    public function deleteStudent($id)
+    {
+        $student = Etudiant::findOrFail($id);
+        $student->delete();
+
+        return back()->with('success', 'Student deleted successfully!');
+    }
+    public function viewSubjects()
+    {
+        $subjects = Subject::all(); // Fetch all subjects
+        return view('admin.subjects.index', compact('subjects'));
+    }
+
+    public function editSubject($id)
+    {
+        $subject = Subject::findOrFail($id);
+        return view('admin.subjects.edit', compact('subject'));
+    }
+    
+    public function updateSubject(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+    
+        $subject = Subject::findOrFail($id);
+        $subject->name = $request->name;
+        $subject->save();
+    
+        return redirect()->route('admin.subjects.index')->with('success', 'Subject updated successfully!');
+    }
+    
+    public function deleteSubject($id)
+    {
+        $subject = Subject::findOrFail($id);
+        $subject->delete();
+    
+        return redirect()->route('admin.subjects.index')->with('success', 'Subject deleted successfully!');
+    }
+    
+
     
 }
 

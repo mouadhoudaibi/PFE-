@@ -33,7 +33,7 @@ class Prof extends Authenticatable
     }
     public function groups()
     {
-        return $this->belongsToMany(Group::class, 'prof_subjects', 'prof_id', 'group_id');
+        return $this->belongsToMany(Group::class, 'prof_subjects', 'prof_id', 'group_id')->distinct();
     }
 
 }
