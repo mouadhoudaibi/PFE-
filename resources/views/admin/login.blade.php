@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
     <style>
-        /* Full-page layout */
-        .login-container {
+                /* Full-page layout */
+                .login-container {
             display: flex;
             height: 100vh;
         }
@@ -59,28 +59,27 @@
 
         /* Right Side - Image & Text */
         .login-image {
-            width: 50%;
-            background-image: url('https://source.unsplash.com/800x600/?school,education');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 40px;
-        }
+        background-image: url('resources\views\admin\picture\loginAdmin.jpg'); /* Corrected path */
+        background-size: cover;
+        background-position: center;
+        height: 100vh; /* Full viewport height */
+        color: white; /* Optional: Adjust text color for contrast */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
 
-        .login-image h1 {
-            font-size: 36px;
-            font-weight: bold;
-        }
+    .login-image h1 {
+        font-size: 3rem;
+        margin-bottom: 20px;
+    }
 
-        .login-image p {
-            font-size: 18px;
-            margin-top: 10px;
-        }
+    .login-image p {
+        font-size: 1.25rem;
+        margin-top: 10px;
+    }
 
         /* Responsive Design */
         @media (max-width: 992px) {

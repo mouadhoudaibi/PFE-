@@ -19,6 +19,7 @@
                 <tr>
                     <th>Nr</th>
                     <th>Name</th>
+                    <th>Coefficient</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -28,6 +29,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $subject->name }}</td>
+                    <td>{{ $subject->coefficient }}</td>
                     <td>
                         <!-- Modifier (Edit) Button -->
                         <a href="{{ route('admin.subjects.edit', $subject->id) }}" class="btn btn-warning btn-sm">

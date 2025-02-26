@@ -79,5 +79,21 @@ class EtudiantController extends Controller
         return view('etudiant.assignments', compact('subjects'));
     }
 
+    public function group()
+    {
+        $student = Auth::guard('etudiant')->user();
+        $group = $student->group; // Assuming each student belongs to one group
+    
+        if (!$group) {
+            return redirect()->route('etudiant.dashboard')->with('error', 'You are not assigned to any group.');
+        }
+    
+        // Sort students alphabetically by their name
+        $group->etudiants = $group->etudiants->sortBy('name');
+    
+        return view('etudiant.group', compact('group'));
+    }
+    
+
 }
 

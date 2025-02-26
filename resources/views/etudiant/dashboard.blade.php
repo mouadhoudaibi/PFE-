@@ -37,7 +37,12 @@
                             <ul class="list-group">
                                 @foreach($grades as $grade)
                                     <li class="list-group-item">
-                                        {{ $grade->subject->name }} - Grade: {{ $grade->grade }} | Grade 2: {{ $grade->grade2 }}
+                                        {{ $grade->subject->name }} - Grade Final:
+                                        <?php
+                                            $gradeFinal = $grade->grade + $grade->grade2;
+                                            $moyenne = $gradeFinal / 2;
+                                            echo $moyenne;
+                                        ?>
                                     </li>
                                 @endforeach
                                 

@@ -248,10 +248,12 @@ class AdminController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
+            'coefficient' => 'required|numeric|between:0,10',
         ]);
     
         $subject = Subject::findOrFail($id);
         $subject->name = $request->name;
+        $subject->coefficient = $request->coefficient;
         $subject->save();
     
         return redirect()->route('admin.subjects.index')->with('success', 'Subject updated successfully!');

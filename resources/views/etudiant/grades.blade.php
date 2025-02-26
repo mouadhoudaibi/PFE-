@@ -123,9 +123,10 @@
                             <thead class="table-dark">
                                 <tr>
                                     <th><i class="fas fa-book"></i> Subject</th>
+                                    <th><i class="fas fa-chart-bar"></i>Coefficient</th>
                                     <th><i class="fas fa-user-tie"></i> Professor</th>
-                                    <th><i class="fas fa-star"></i> Grade</th>
-                                    <th><i class="fas fa-star"></i>Grade2</th>
+                                    <th><i class="fas fa-graduation-cap"></i> Grade 1</th>
+                                    <th><i class="fas fa-graduation-cap"></i>Grade 2</th>
                                 </tr>
                             </thead>
 
@@ -138,6 +139,7 @@
                                     @endphp
                                     <tr>
                                         <td>{{ $subject->name }}</td>
+                                        <td>{{ $subject->coefficient }}</td>
                                         <td>{{ $subject->profs->pluck('name')->unique()->join(', ') }}</td>
                                         <td>
                                             @if($grade)

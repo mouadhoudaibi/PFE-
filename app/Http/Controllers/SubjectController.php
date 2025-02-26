@@ -16,10 +16,13 @@ class SubjectController extends Controller
     {
         $request->validate([
             'name' => 'required|unique:subjects|max:255',
+            'coefficient' => 'required|numeric|between:0,10'
+
         ]);
 
         Subject::create([
             'name' => $request->name,
+            'coefficient' => $request->coefficient
         ]);
 
         return redirect()->back()->with('success', 'Subject created successfully!');

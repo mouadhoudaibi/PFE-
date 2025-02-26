@@ -16,6 +16,7 @@
                 <tr>
                     <th>Subject</th>
                     <th>Professor(s)</th>
+                    <th>Coefficient</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,7 @@
                     <tr>
                         <td>{{ $subject->name }}</td>
                         <td>{{ $subject->profs->pluck('name')->unique()->join(', ') }}</td>
+                        <td>{{ $subject->coefficient }}</td>
 
                     </tr>
                 @endforeach

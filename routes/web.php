@@ -92,6 +92,9 @@ Route::prefix('etudiant')->group(function () {
         Route::get('dashboard', [EtudiantController::class, 'dashboard'])->name('etudiant.dashboard');
         Route::get('assignments', [EtudiantController::class, 'assignments'])->name('etudiant.assignments');
         Route::get('grades', [EtudiantController::class, 'grades'])->name('student.grades');
+        Route::get('group', [EtudiantController::class, 'group'])->name('etudiant.group');
+
+        
     });
 
     // Authentication Routes

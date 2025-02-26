@@ -14,6 +14,12 @@
             <label for="name" class="form-label">Subject Name:</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ $subject->name }}" required>
         </div>
+        <!-- coifficient -->
+        <div class="mb-3">
+            <label for="coifficient" class="form-label">Coifficient:</label>
+            <input type="number" class="form-control" id="coefficient" name="coefficient" value="{{ $subject->coefficient }}" required>
+        </div>
+
 
         <button type="submit" class="btn btn-success">Update Subject</button>
         <a href="{{ route('admin.subjects.index') }}" class="btn btn-secondary">Cancel</a>

@@ -36,7 +36,7 @@
         <!-- Main Content -->
         <div class="container-fluid">
             <h1 class="mb-4">Groups You Teach</h1>
-
+            
             @if($groups->isEmpty())
                 <p>You are not assigned to any groups.</p>
             @else

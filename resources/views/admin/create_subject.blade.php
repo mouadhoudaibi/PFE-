@@ -19,6 +19,10 @@
                         <label for="name" class="form-label">Subject Name:</label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
+                    <div class="mb-3">
+                         <label for="coefficient" class="form-label">Coefficient:</label>
+                         <input type="number" class="form-control" id="coefficient" name="coefficient" required>
+                    </div>
                     <button type="submit" class="btn btn-success w-100">Create Subject</button>
                 </form>
             </div>

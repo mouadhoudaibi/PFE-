@@ -79,6 +79,8 @@
     <div class="sidebar">
         <a href="{{ route('etudiant.dashboard') }}" class="sidebar-link {{ Request::is('etudiant/dashboard') ? 'active' : '' }} "><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         <a href="#"><i class="fas fa-book"></i> Your Courses</a>
+        <!-- Your Group view all student in the same group -->
+         <a href="{{ route('etudiant.group') }}" class="sidebar-link {{ Request::is('etudiant/group') ? 'active' : '' }} "><i class="fas fa-users"></i> Your Group</a>
         <a href="{{ route('student.grades') }}" class="sidebar-link {{ Request::is('etudiant/grades') ? 'active' : '' }}"><i class="fas fa-graduation-cap"></i> Your Grades</a>
         <a href="{{ route('etudiant.assignments') }}" class="sidebar-link {{ Request::is('etudiant/assignments') ? 'active' : '' }}"><i class="fas fa-tasks"></i> Assignments</a>
 

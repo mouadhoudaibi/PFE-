@@ -16,6 +16,11 @@
         background-color: white;
         color: black;
     }
+    table thead tr:hover {
+        background-color: black;
+        transition: background-color 0.3s ease;
+    }
+
 </style>
 <div class="container mt-5">
     <h1 class="mb-4">Students in <strong>{{ $group->name }}</strong></h1>
@@ -40,6 +45,7 @@
                 </select>
             </div>
 
+
             <!-- Students Table -->
             <div class="table-responsive">
                 <table class="table table-hover custom-table">
@@ -53,19 +59,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($group->etudiants as $student)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $student->name }}</td>
-                                <td>{{ $student->email }}</td>
-                                <td>
-                                    <input type="number" name="grades[{{ $student->id }}]" class="form-control grade-input" min="0" max="20" step="0.5" value="{{ old('grades.' . $student->id) }}">
-                                </td>
-                                <td>
-                                    <input type="number" name="grades2[{{ $student->id }}]" class="form-control grade-input" min="0" max="20" step="0.5" value="{{ old('grades2.' . $student->id) }}">
-                                </td>
-                            </tr>
-                        @endforeach
+                    @foreach($group->etudiants as $student)
+                        <tr>
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $student->name }}</td>
+                            <td>{{ $student->email }}</td>
+                            <td>
+                                <input type="number" name="grades[{{ $student->id }}]" class="form-control grade-input" min="0" max="20" step="0.5">
+                            </td>
+                            <td>
+                                <input type="number" name="grades2[{{ $student->id }}]" class="form-control grade-input" min="0" max="20" step="0.5">
+                            </td>
+                        </tr>
+                    @endforeach
+
                     </tbody>
                 </table>
             </div>
