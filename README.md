@@ -22,18 +22,18 @@ Admins can assign professors to subjects and student groups. Professors can subm
 
 Follow these steps to run the project locally:
 
-### 1. Clone the repository
+ 1. Clone the repository
 
 ```bash
 git clone https://github.com/mouadhoudaibi/PFE-.git
 cd PFE- 
 ```
-### 2. Install dependencies
+ 2. Install dependencies
 Make sure you have Composer installed, then run:
 ```bash
 composer install
 ```
-### 3. Create a .env file
+3. Create a .env file
 Duplicate .env.example and rename it to .env, then configure your database settings:
 ```bash
 DB_CONNECTION=mysql
@@ -43,19 +43,19 @@ DB_DATABASE=your_database
 DB_USERNAME=your_username
 DB_PASSWORD=your_password
 ```
-### 4. Generate application key
+ 4. Generate application key
 ```bash
 php artisan key:generate
 ```
-### 5. Run database migrations
+ 5. Run database migrations
 ```bash
 php artisan migrate
 ```
-### 6. (Optional) Seed the database with test data
+ 6. (Optional) Seed the database with test data
 ```bash
 php artisan db:seed
 ```
-### 7. Start the development server
+ 7. Start the development server
 ```bash
 php artisan serve
 ```
