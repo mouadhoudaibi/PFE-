@@ -80,6 +80,24 @@ Student Login
 
 📊 Dashboards <br>
 Admin Dashboard
+<img width="960" alt="image" src="https://github.com/user-attachments/assets/fc7b0072-3d57-4c68-a36a-01fd4f1283b6" />
+Professor Dashboard
+<img width="960" alt="image" src="https://github.com/user-attachments/assets/8801fe0c-a72c-42d2-b58f-45f80b7e52cf" />
+
+Student Dashboard
+<img width="960" alt="image" src="https://github.com/user-attachments/assets/287c8a87-2af3-4eef-b43a-51c2d58567d3" />
+
+Prof Grade to Student 
+<img width="960" alt="image" src="https://github.com/user-attachments/assets/7fb3cc42-3c9c-4998-a52b-351f2bb69ce6" />
+
+Student All Grades View 
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/8404e5a8-dcf1-45d8-87ff-ac3c8a9696aa" />
+Student Total Grades
+<img width="959" alt="image" src="https://github.com/user-attachments/assets/f5e51e62-ddc3-41ff-9ed0-b12b9f8353d3" />
+
+
+
+
 
 
 
