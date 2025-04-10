@@ -69,8 +69,29 @@ Visit the app at:
 
 🎓 http://127.0.0.1:8000/etudiant/login — Student Login
 
-🖼️ Screenshots <br>
-🔐 Login Pages
+🖼️ Screenshots <br> <br>
+🔐 Login Pages <br>
+Admin Login
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/c76d3d43-35ad-4cc0-b737-584a4d2ab404" />
+Professor Login
+<img width="957" alt="image" src="https://github.com/user-attachments/assets/520d73a9-b6a1-48a4-8d8e-83b0b296d6a6" />
+Student Login
+<img width="960" alt="image" src="https://github.com/user-attachments/assets/4e2f0c94-d8db-46fd-b27d-5ba3ba7eb6bb" />
+
+📊 Dashboards <br>
+Admin Dashboard
+
+
+
+📂 Tech Stack
+Laravel (PHP)
+
+Blade (Laravel templating)
+
+MySQL 
+
+
+
+
 
 
