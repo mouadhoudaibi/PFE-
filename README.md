@@ -25,8 +25,8 @@ Follow these steps to run the project locally:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/your-project-name.git
-cd your-project-name 
+git clone https://github.com/mouadhoudaibi/PFE-.git
+cd PFE- 
 ```
 ### 2. Install dependencies
 Make sure you have Composer installed, then run:
