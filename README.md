@@ -26,4 +26,9 @@ Follow these steps to run the project locally:
 
 ```bash
 git clone https://github.com/your-username/your-project-name.git
-cd your-project-name
+cd your-project-name 
+
+### 2. Install dependencies
+Make sure you have Composer installed, then run:
+
+composer install
