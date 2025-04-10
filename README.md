@@ -69,7 +69,7 @@ Visit the app at:
 
 🎓 http://127.0.0.1:8000/etudiant/login — Student Login
 
-🖼️ Screenshots
+🖼️ Screenshots <br>
 🔐 Login Pages
 <img width="959" alt="image" src="https://github.com/user-attachments/assets/c76d3d43-35ad-4cc0-b737-584a4d2ab404" />
 
