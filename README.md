@@ -81,6 +81,7 @@ Student Login
 📊 Dashboards <br>
 Admin Dashboard
 <img width="960" alt="image" src="https://github.com/user-attachments/assets/fc7b0072-3d57-4c68-a36a-01fd4f1283b6" />
+
 Professor Dashboard
 <img width="960" alt="image" src="https://github.com/user-attachments/assets/8801fe0c-a72c-42d2-b58f-45f80b7e52cf" />
 
