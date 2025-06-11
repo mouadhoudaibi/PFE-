@@ -13,26 +13,26 @@
     @csrf
 
     <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
+    <label for="name" class="form-label">{{ __('EditeAdmin.name') }}</label>
         <input type="text" name="name" class="form-control" value="{{ old('name', $admin->name) }}" required>
     </div>
 
     <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
+        <label for="email" class="form-label">{{ __('EditeAdmin.email') }}</label>
         <input type="email" name="email" class="form-control" value="{{ old('email', $admin->email) }}" required>
     </div>
 
     <div class="mb-3">
-        <label for="password" class="form-label">New Password (optional)</label>
+        <label for="password" class="form-label">{{ __('EditeAdmin.new_password') }}</label>
         <input type="password" id="password" onchange="checkPassword()" name="password" class="form-control">
     </div>
 
     <div class="mb-3">
-        <label for="password_confirmation" class="form-label">Confirm New Password</label>
+        <label for="password_confirmation" class="form-label">{{ __('EditeAdmin.confirm_password') }}</label>
         <input type="password" id="password_confirmation" onchange="checkPassword()" name="password_confirmation" class="form-control">
     </div>
 
-    <button type="submit" class="btn btn-primary">Update Profile</button>
+    <button type="submit" class="btn btn-primary">{{ __('EditeAdmin.update_profile') }}</button>
 </form>
 
 <script>

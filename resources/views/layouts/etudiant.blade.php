@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ session('locale', 'en') }}">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-
-    <!-- Bootstrap & Font Awesome -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
@@ -40,18 +38,17 @@
             background-color: #dcdcdc;
             color: #000;
         }
+
         .sidebar .active {
             background-color: #dcdcdc;
             color: #000;
         }
 
-        /* Content styles */
         .content {
             margin-left: 20%;
             padding: 20px;
         }
 
-        /* Navbar styles */
         .navbar {
             background-color: #343a40;
             padding: 15px;
@@ -70,36 +67,68 @@
             margin-left: 10px;
             cursor: pointer;
         }
+
+        .user-initial {
+            display: inline-block;
+            background-color: #fff;
+            color: #000;
+            width: 32px;
+            height: 32px;
+            text-align: center;
+            border-radius: 50%;
+            line-height: 32px;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
 
-    <!-- Sidebar -->
     <div class="sidebar">
-        <a href="{{ route('etudiant.dashboard') }}" class="sidebar-link {{ Request::is('etudiant/dashboard') ? 'active' : '' }} "><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-        <a href="#"><i class="fas fa-book"></i> Your Courses</a>
-        <!-- Your Group view all student in the same group -->
-         <a href="{{ route('etudiant.group') }}" class="sidebar-link {{ Request::is('etudiant/group') ? 'active' : '' }} "><i class="fas fa-users"></i> Your Group</a>
-        <a href="{{ route('student.grades') }}" class="sidebar-link {{ Request::is('etudiant/grades') ? 'active' : '' }}"><i class="fas fa-graduation-cap"></i> Your Grades</a>
-        <a href="{{ route('etudiant.assignments') }}" class="sidebar-link {{ Request::is('etudiant/assignments') ? 'active' : '' }}"><i class="fas fa-tasks"></i> Assignments</a>
-
+        <a href="{{ route('etudiant.dashboard') }}" class="{{ Request::is('etudiant/dashboard') ? 'active' : '' }}">
+            <i class="fas fa-tachometer-alt"></i> {{ __('layoutetudiant.dashboard') }}
+        </a>
+        <a href="{{ route('etudiant.group') }}" class="{{ Request::is('etudiant/group') ? 'active' : '' }}">
+            <i class="fas fa-users"></i> {{ __('layoutetudiant.your_group') }}
+        </a>
+        <a href="{{ route('etudiant.grades') }}" class="{{ Request::is('etudiant/grades*') ? 'active' : '' }}">
+            <i class="fas fa-graduation-cap"></i> {{ __('layoutetudiant.your_grades') }}
+        </a>
+        <a href="{{ route('etudiant.assignments') }}" class="{{ Request::is('etudiant/assignments') ? 'active' : '' }}">
+            <i class="fas fa-tasks"></i> {{ __('layoutetudiant.assignments') }}
+        </a>
         <form action="{{ route('etudiant.logout') }}" method="POST">
             @csrf
-            <button type="submit" class="logout-btn">
-                <i class="fas fa-sign-out-alt"></i> Logout
+            <button type="submit">
+                <i class="fas fa-sign-out-alt"></i> {{ __('layoutetudiant.logout') }}
             </button>
         </form>
     </div>
 
-    <!-- Main Content -->
     <div class="content">
         <nav class="navbar d-flex justify-content-between">
-            <span class="navbar-brand">Etudiant Dashboard</span>
+            <span class="navbar-brand">{{ __('layoutetudiant.dashboard_title') }}</span>
             <div class="d-flex align-items-center">
-                <span class="user-info">
-                    <i class="fas fa-user"></i> {{ Auth::guard('etudiant')->user()->name }}
-                </span>
+                <!-- Profile Initial -->
+                <a href="#" class="user-info text-decoration-none text-white d-flex align-items-center">
+                    <span class="user-initial">
+                        {{ strtoupper(substr(Auth::guard('etudiant')->user()->name, 0, 1)) }}
+                    </span>
+                    <span class="ml-2">{{ Auth::guard('etudiant')->user()->name }}</span>
+                </a>
+
+                @php $locale = session('locale', 'en'); @endphp
+                <div class="ml-3">
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {{ strtoupper($locale) }} <i class="fas fa-globe-americas ml-1"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
+                            <a class="dropdown-item {{ $locale == 'en' ? 'active' : '' }}" href="{{ route('lang.switch', 'en') }}">{{ __('layoutetudiant.language_en') }}</a>
+                            <a class="dropdown-item {{ $locale == 'fr' ? 'active' : '' }}" href="{{ route('lang.switch', 'fr') }}">{{ __('layoutetudiant.language_fr') }}</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
 
@@ -108,7 +137,6 @@
         </div>
     </div>
 
-    <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -44,11 +44,24 @@ class ProfController extends Controller
     public function dashboard()
     {
         $prof = Auth::guard('prof')->user();
-        $subjects = $prof->subjects; // Retrieve subjects assigned to the professor
-        $groups = $prof->groups()->with('etudiants')->get(); // Récupère les groupes enseignés par le prof
+        $subjects = $prof->subjects;
 
-        return view('prof.dashboard', compact('groups','subjects'));
+        $groups = $prof->groups()->withCount('etudiants')->get();
+
+        $groupsWithStudentsCount = $groups->where('etudiants_count', '>', 0)->count();
+
+        $totalStudents = $groups->sum('etudiants_count');
+
+        return view('prof.dashboard', [
+            'groups' => $groups,
+            'subjects' => $subjects,
+            'totalStudents' => $totalStudents,
+            'pendingGrades' => $groupsWithStudentsCount, // reuse the old variable to avoid changing the Blade
+        ]);
     }
+
+
+     
 
     public function logout()
     {
@@ -58,13 +71,13 @@ class ProfController extends Controller
 
 
     public function showStudents($subject_id)
-{
-    $subject = Subject::findOrFail($subject_id);
+    {
+        $subject = Subject::findOrFail($subject_id);
 
-    $students = Etudiant::where('group_id', $subject->group_id)->get();
+        $students = Etudiant::where('group_id', $subject->group_id)->get();
 
-    return view('prof.students', compact('students', 'subject_id'));
-}
+        return view('prof.students', compact('students', 'subject_id'));
+    }
 
     public function storeGrade(Request $request)
     {
@@ -110,10 +123,8 @@ class ProfController extends Controller
 
     public function viewStudents($group_id)
 {
-    // Get the group and its subjects
     $group = Group::with('subjects')->findOrFail($group_id);
 
-    // Return the view and pass the group data
     return view('prof.view-students', compact('group'));
 }
 
@@ -121,38 +132,74 @@ class ProfController extends Controller
 
 
 
-public function saveGrades(Request $request, Group $group)
-{
-    $request->validate([
-        'subject_id' => 'required|exists:subjects,id',
-        'grades' => 'required|array',
-        'grades2' => 'required|array',
-        'grades.*' => 'nullable|numeric|min:0|max:20',
-    ]);
+    public function saveGrades(Request $request, Group $group)
+    {
+        $request->validate([
+            'subject_id' => 'required|exists:subjects,id',
+            'grades' => 'required|array',
+            'grades2' => 'required|array',
+            'grades.*' => 'nullable|numeric|min:0|max:20',
+        ]);
 
-    $prof = Auth::guard('prof')->user();
+        $prof = Auth::guard('prof')->user();
 
-    foreach ($request->grades as $studentId => $gradeValue) {
-        $grade2Value = $request->grades2[$studentId] ?? null;
-        
-        if ($gradeValue !== null && $grade2Value !== null) {
-            Grade::updateOrCreate(
-                [
-                    'etudiant_id' => $studentId,
-                    'prof_id' => $prof->id,
-                    'subject_id' => $request->subject_id
-                ],
-                [
-                    'grade' => $gradeValue,
-                    'grade2' => $grade2Value, 
-                ]
-            );
+        foreach ($request->grades as $studentId => $gradeValue) {
+            $grade2Value = $request->grades2[$studentId] ?? null;
+            
+            if ($gradeValue !== null && $grade2Value !== null) {
+                Grade::updateOrCreate(
+                    [
+                        'etudiant_id' => $studentId,
+                        'prof_id' => $prof->id,
+                        'subject_id' => $request->subject_id
+                    ],
+                    [
+                        'grade' => $gradeValue,
+                        'grade2' => $grade2Value, 
+                    ]
+                );
+            }
         }
-    }
-    
+        
 
-    return redirect()->route('prof.groups')->with('success', 'Grades saved successfully.');
-}
+        return redirect()->route('prof.groups')->with('success', 'Grades saved successfully.');
+    }
+
+    public function index()
+    {
+        $professors = Prof::all();
+        return view('admin.professors.index', compact('professors'));
+    }
+
+    public function edit($id)
+    {
+        $professor = Prof::findOrFail($id);
+        return view('admin.professors.edit', compact('professor'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:profs,email,' . $id,
+        ]);
+
+        $professor = Prof::findOrFail($id);
+        $professor->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        return redirect()->route('admin.professors')->with('success', 'Professor updated successfully!');
+    }
+
+    public function destroy($id)
+    {
+        $professor = Prof::findOrFail($id);
+        $professor->delete();
+
+        return redirect()->route('admin.professors')->with('success', 'Professor deleted successfully!');
+    }
 
 
 

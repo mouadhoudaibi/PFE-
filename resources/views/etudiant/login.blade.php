@@ -4,16 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Etudiant</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body>
-
-    <form action="{{ route('etudiant.login') }}" method="POST">
-        @csrf
-        <input type="email" name="email" placeholder="Email">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit">Login</button>
-    </form>
-
-    
+<body class="d-flex align-items-center justify-content-center vh-100 bg-light">
+    <div class="card shadow p-4" style="width: 400px;">
+        <h2 class="text-center">Login Etudiant</h2>
+        <form action="{{ route('etudiant.login') }}" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -41,11 +41,39 @@ class EtudiantController extends Controller
     public function dashboard()
     {
         $etudiant = Auth::user();
-        $grades = $etudiant->grades;
-        $studentsInGroup = Etudiant::where('group_id', $etudiant->group_id)->count(); 
 
-        return view('etudiant.dashboard', compact('studentsInGroup','grades'));
+        $grades = $etudiant->grades; 
+
+        $studentsInGroup = Etudiant::where('group_id', $etudiant->group_id)->count();
+
+        $allSubjects = $etudiant->group->subjects; 
+
+        $sum = 0;
+        $totalCoeff = 0;
+
+        foreach ($allSubjects as $subject) {
+            $grade = $grades->where('subject_id', $subject->id)->first();
+
+            if ($grade) {
+                // weighted average calculation same as your Total Grades page
+                $finalGrade = (($grade->grade + $grade->grade2) * $subject->coefficient) / 2;
+                $sum += $finalGrade;
+                $totalCoeff += $subject->coefficient;
+            }
+        }
+
+        $averageGrade = $totalCoeff > 0 ? ($sum / $totalCoeff) : 0;
+
+        $moduleCount = $grades->pluck('subject_id')->unique()->count();
+
+        return view('etudiant.dashboard', compact(
+            'studentsInGroup',
+            'averageGrade',
+            'moduleCount'
+        ));
     }
+
+
 
     public function grades()
     {
@@ -73,7 +101,6 @@ class EtudiantController extends Controller
             return redirect()->route('etudiant.dashboard')->with('error', 'You are not assigned to a group.');
         }
 
-        // Get subjects and their professors for this student's group
         $subjects = $group->subjects()->with('profs')->get();
 
         return view('etudiant.assignments', compact('subjects'));
@@ -88,10 +115,18 @@ class EtudiantController extends Controller
             return redirect()->route('etudiant.dashboard')->with('error', 'You are not assigned to any group.');
         }
     
-        // Sort students alphabetically by their name
         $group->etudiants = $group->etudiants->sortBy('name');
     
         return view('etudiant.group', compact('group'));
+    }
+
+    public function totalgrades()
+    {
+        $etudiant = Auth::user();
+        $grades = $etudiant->grades;
+        $studentsInGroup = Etudiant::where('group_id', $etudiant->group_id)->count(); 
+
+        return view('etudiant.totalgrades', compact('studentsInGroup','grades'));
     }
     
 

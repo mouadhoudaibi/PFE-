@@ -4,8 +4,8 @@
 <div class="container mt-5">
     <div class="">
         <div class="col-md-8">
-        <h2>All Subjects</h2>
-        <a href="{{ route('admin.createSubject') }}" class="btn btn-primary">Create New Subject</a>
+        <h2>{{ __('listSubject.all_subjects') }}</h2>
+        <a href="{{ route('admin.createSubject') }}" class="btn btn-primary">{{ __('listSubject.create_subject') }}</a>
         </div>
         
     </div>
@@ -17,11 +17,11 @@
         <table class="table table-bordered">
             <thead class="table-dark">
                 <tr>
-                    <th>Nr</th>
-                    <th>Name</th>
-                    <th>Coefficient</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
+                    <th>{{ __('listSubject.nr') }}</th>
+                    <th>{{ __('listSubject.name') }}</th>
+                    <th>{{ __('listSubject.coefficient') }}                </th>
+                    <th>{{ __('listSubject.edit') }}</th>
+                    <th>{{ __('listSubject.delete') }}</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,7 +33,7 @@
                     <td>
                         <!-- Modifier (Edit) Button -->
                         <a href="{{ route('admin.subjects.edit', $subject->id) }}" class="btn btn-warning btn-sm">
-                            <i class="fas fa-edit"></i> Modifier
+                            <i class="fas fa-edit"></i> {{ __('listSubject.edit') }}
                         </a>
                     </td>
                     <td>
@@ -43,7 +43,7 @@
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?');">
-                                <i class="fas fa-trash"></i> Supprimer
+                                <i class="fas fa-trash"></i> {{ __('listSubject.delete') }}
                             </button>
                         </form>
                     </td>

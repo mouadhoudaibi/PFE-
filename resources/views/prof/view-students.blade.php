@@ -33,7 +33,6 @@
         <form action="{{ route('prof.saveGrades', $group->id) }}" method="POST">
             @csrf
 
-            <!-- Subject Selection -->
             <div class="form-group mb-4">
                 <label for="subject_id" class="form-label">Select Subject:</label>
                 <select name="subject_id" class="form-control" required>
@@ -46,7 +45,6 @@
             </div>
 
 
-            <!-- Students Table -->
             <div class="table-responsive">
                 <table class="table table-hover custom-table">
                     <thead class="table-dark">
@@ -54,7 +52,7 @@
                             <th scope="col">NR</th>
                             <th scope="col">Name</th>
                             <th scope="col" >Email</th>
-                            <th scope="col" >Grade</th>
+                            <th scope="col" >Grade 1</th>
                             <th scope="col" >Grade 2</th>
                         </tr>
                     </thead>
@@ -77,14 +75,12 @@
                 </table>
             </div>
 
-            <!-- Save Button -->
             <div class="text-end">
                 <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-save"></i> Save Grades</button>
             </div>
         </form>
     @endif
 
-    <!-- Back to Groups Button -->
     <div class="mt-4">
         <a href="{{ route('prof.groups') }}" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Back to Groups</a>
     </div>

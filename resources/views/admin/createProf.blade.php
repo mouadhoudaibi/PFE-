@@ -1,32 +1,32 @@
 @extends('layouts.app')
-@section('title', 'Create Professor')
+@section('title', __('createprofessor.title'))
 
 @section('content')
-<h2>Create Professor Account</h2>
+<h2>{{ __('createprofessor.heading') }}</h2>
 
 <form action="{{ route('admin.createProf') }}" method="POST">
     @csrf
     <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" name="name" id="name" class="form-control" placeholder="Enter professor name" required>
+        <label for="name" class="form-label">{{ __('createprofessor.name') }}</label>
+        <input type="text" name="name" id="name" class="form-control" placeholder="{{ __('createprofessor.placeholder_name') }}" required>
     </div>
     
     <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" name="email" id="email" class="form-control" placeholder="Enter professor email" required>
+        <label for="email" class="form-label">{{ __('createprofessor.email') }}</label>
+        <input type="email" name="email" id="email" class="form-control" placeholder="{{ __('createprofessor.placeholder_email') }}" required>
     </div>
     
     <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
+        <label for="password" class="form-label">{{ __('createprofessor.password') }}</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="{{ __('createprofessor.placeholder_password') }}" required>
     </div>
     
     <div class="mb-3">
-        <label for="password_confirmation" class="form-label">Confirm Password</label>
-        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm password" required>
+        <label for="password_confirmation" class="form-label">{{ __('createprofessor.confirm_password') }}</label>
+        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="{{ __('createprofessor.placeholder_confirm_password') }}" required>
     </div>
     
-    <button type="submit" class="btn btn-primary">Create Professor</button>
+    <button type="submit" class="btn btn-primary">{{ __('createprofessor.submit') }}</button>
 </form>
 
 @if ($errors->any())
@@ -46,7 +46,7 @@
         var confirmPassword = document.getElementById('password_confirmation');
         
         if (password.value !== confirmPassword.value) {
-            confirmPassword.setCustomValidity('Passwords do not match.');
+            confirmPassword.setCustomValidity('{{ __('createprofessor.error_mismatch') }}');
         } else {
             confirmPassword.setCustomValidity('');
         }

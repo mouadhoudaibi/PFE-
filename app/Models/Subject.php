@@ -16,7 +16,6 @@ class Subject extends Model
         return $this->belongsToMany(Prof::class, 'prof_subjects');
     }
 
-    // app/Models/Subject.php
 
 public function groups()
 {

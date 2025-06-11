@@ -4,7 +4,6 @@
 @section('content')
 
 <style>
-    /* General content styling */
 .content {
     padding: 20px;
     font-family: 'Arial', sans-serif;
@@ -15,7 +14,6 @@
     width: 100%;
 }
 
-/* Student Info Section */
 .card-body {
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -34,7 +32,6 @@
     color: #555;
 }
 
-/* Grades Section */
 .container {
     margin-top: 30px;
 }
@@ -76,7 +73,6 @@
     color: #888;
 }
 
-/* Alert styling for no subjects found */
 .alert-warning {
     background-color: #fff3cd;
     color: #856404;
@@ -87,7 +83,6 @@
     margin-top: 20px;
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 768px) {
     .content {
         padding: 10px;
@@ -101,32 +96,72 @@
         padding: 8px;
     }
 }
+.link {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.link a {
+    text-decoration: none;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: 0.3s ease-in-out;
+}
+
+.link a:hover {
+    background-color: #0056b3;
+}
+
+.link a {
+        text-decoration: none;
+        background-color: #007bff;
+        color: white;
+        padding: 10px 15px;
+        border-radius: 8px;
+        transition: 0.3s ease-in-out;
+    }
+
+    .link a:hover {
+        background-color: #0056b3;
+    }
+
+    .link a.active {
+        background-color: #0056b3;
+        font-weight: bold;
+        box-shadow: 0 0 10px rgba(0, 91, 187, 0.8);
+    }
 
 </style>
 
+        <div class="link">
+            <a href="{{ route('etudiant.grades') }}" class="{{ request()->routeIs('etudiant.grades') ? 'active' : '' }}">{{ __('grades.your_grades') }}</a>
+            <a href="{{ route('etudiant.totalgrades') }}" class="{{ request()->routeIs('etudiant.totalgrades') ? 'active' : '' }}">{{ __('grades.total_grades') }}</a>
+        </div>
 
-        <!-- Student Info Section -->
          <div class="centre">
                 <div class="container mt-4">
                     <div class="card-body">
-                        <h5 class="card-title">Group: {{ Auth::user()->group->name }}</h5>
-                        <p class="card-text">👥 There are <strong>{{ $studentsInGroup }}</strong> students in your group.</p>
+                        <h5 class="card-title">{{ __('grades.group') }}: {{ Auth::user()->group->name }}</h5>
+                        <p class="card-text">{{ __('grades.students_count') }} <strong>{{ $studentsInGroup }}</strong> {{ __('grades.students_count2') }}.</p>
                     </div>
                 </div>
 
-                <!-- Grades Section -->
                 <div class="container">
                     @if($subjects->isEmpty())
-                        <p class="alert alert-warning">No subjects found.</p>
+                        <p class="alert alert-warning">{{ __('grades.no_subjects') }}.</p>
                     @else
                         <table class="table table-striped">
                             <thead class="table-dark">
                                 <tr>
-                                    <th><i class="fas fa-book"></i> Subject</th>
-                                    <th><i class="fas fa-chart-bar"></i>Coefficient</th>
-                                    <th><i class="fas fa-user-tie"></i> Professor</th>
-                                    <th><i class="fas fa-graduation-cap"></i> Grade 1</th>
-                                    <th><i class="fas fa-graduation-cap"></i>Grade 2</th>
+                                    <th><i class="fas fa-book"></i> {{ __('grades.subject') }}</th>
+                                    <th><i class="fas fa-chart-bar"></i> {{ __('grades.coefficient') }}</th>
+                                    <th><i class="fas fa-user-tie"></i> {{ __('grades.professor') }}</th>
+                                    <th><i class="fas fa-graduation-cap"></i> {{ __('grades.grade1') }}</th>
+                                    <th><i class="fas fa-graduation-cap"></i> {{ __('grades.grade2') }}</th>
                                 </tr>
                             </thead>
 
