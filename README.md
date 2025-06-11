@@ -91,7 +91,8 @@ Student Dashboard
 
 
 Prof Grade to Student 
-<img width="960" alt="image" src="https://github.com/user-attachments/assets/7fb3cc42-3c9c-4998-a52b-351f2bb69ce6" />
+<img width="939" alt="image" src="https://github.com/user-attachments/assets/00f44c01-8580-4e9e-8a3c-5a314d6f4b93" />
+
 
 Student All Grades View 
 <img width="942" alt="image" src="https://github.com/user-attachments/assets/633e12d2-3cb9-46b9-bfe5-233f770c4629" />
