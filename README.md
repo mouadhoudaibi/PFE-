@@ -80,21 +80,27 @@ Student Login
 
 📊 Dashboards <br>
 Admin Dashboard
-<img width="960" alt="image" src="https://github.com/user-attachments/assets/fc7b0072-3d57-4c68-a36a-01fd4f1283b6" />
+<img width="949" alt="image" src="https://github.com/user-attachments/assets/edda1634-15d7-42f3-be9c-4c19f20cb3ee" />
 
 Professor Dashboard
-<img width="960" alt="image" src="https://github.com/user-attachments/assets/8801fe0c-a72c-42d2-b58f-45f80b7e52cf" />
+<img width="945" alt="image" src="https://github.com/user-attachments/assets/ad0811e1-6add-49e3-aae3-cdb9c6855546" />
+
 
 Student Dashboard
-<img width="960" alt="image" src="https://github.com/user-attachments/assets/287c8a87-2af3-4eef-b43a-51c2d58567d3" />
+<img width="944" alt="image" src="https://github.com/user-attachments/assets/702564b4-87dc-4f71-95dd-0c76e067b05c" />
+
 
 Prof Grade to Student 
 <img width="960" alt="image" src="https://github.com/user-attachments/assets/7fb3cc42-3c9c-4998-a52b-351f2bb69ce6" />
 
 Student All Grades View 
-<img width="959" alt="image" src="https://github.com/user-attachments/assets/8404e5a8-dcf1-45d8-87ff-ac3c8a9696aa" />
+<img width="942" alt="image" src="https://github.com/user-attachments/assets/633e12d2-3cb9-46b9-bfe5-233f770c4629" />
+
 Student Total Grades
-<img width="959" alt="image" src="https://github.com/user-attachments/assets/f5e51e62-ddc3-41ff-9ed0-b12b9f8353d3" />
+<img width="938" alt="image" src="https://github.com/user-attachments/assets/3e135c1c-2c0f-4f07-90fa-273fa01a48fb" />
+<img width="944" alt="image" src="https://github.com/user-attachments/assets/c61f67b0-6a4e-49cd-9223-cdf4d5e41835" />
+
+
 
 
 
